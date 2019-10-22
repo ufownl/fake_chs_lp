@@ -1,18 +1,19 @@
+import os
 import cv2
 import numpy as np
-import matplotlib.pyplot as plt
 from PIL import Image, ImageFont, ImageDraw
 
 
 class Draw:
     _font = [
-        ImageFont.truetype("res/eng_92.ttf", 125),
-        ImageFont.truetype("res/zh_cn_92.ttf", 90)
+        ImageFont.truetype(os.path.join(os.path.dirname(__file__), "res/eng_92.ttf"), 125),
+        ImageFont.truetype(os.path.join(os.path.dirname(__file__), "res/zh_cn_92.ttf"), 90)
     ]
-    _bg = cv2.resize(cv2.imread("res/yellow_bg.png"), (440, 140))
+    _bg = cv2.resize(cv2.imread(os.path.join(os.path.dirname(__file__), "res/yellow_bg.png")), (440, 140))
 
     def __call__(self, plate):
         if len(plate) != 7:
+            print("ERROR: Invalid length")
             return None
         fg = self._draw_fg(plate)
         return cv2.cvtColor(cv2.bitwise_and(fg, self._bg), cv2.COLOR_BGR2RGB)
@@ -43,7 +44,14 @@ class Draw:
 
 
 if __name__ == "__main__":
+    import argparse
+    import matplotlib.pyplot as plt
+
+    parser = argparse.ArgumentParser(description="Generate a yellow plate.")
+    parser.add_argument("plate", help="license plate number (default: 京A12345)", type=str, nargs="?", default="京A12345")
+    args = parser.parse_args()
+
     draw = Draw()
-    plate = draw("京A12345")
+    plate = draw(args.plate)
     plt.imshow(plate)
     plt.show()
