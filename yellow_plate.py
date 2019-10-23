@@ -6,8 +6,8 @@ from PIL import Image, ImageFont, ImageDraw
 
 class Draw:
     _font = [
-        ImageFont.truetype(os.path.join(os.path.dirname(__file__), "res/eng_92.ttf"), 125),
-        ImageFont.truetype(os.path.join(os.path.dirname(__file__), "res/zh_cn_92.ttf"), 90)
+        ImageFont.truetype(os.path.join(os.path.dirname(__file__), "res/eng_92.ttf"), 126),
+        ImageFont.truetype(os.path.join(os.path.dirname(__file__), "res/zh_cn_92.ttf"), 95)
     ]
     _bg = cv2.resize(cv2.imread(os.path.join(os.path.dirname(__file__), "res/yellow_bg.png")), (440, 140))
 
@@ -19,10 +19,10 @@ class Draw:
         return cv2.cvtColor(cv2.bitwise_and(fg, self._bg), cv2.COLOR_BGR2RGB)
 
     def _draw_char(self, ch):
-        img = Image.new("RGB", (45 if ch.isupper() or ch.isdigit() else 90, 140), (255, 255, 255))
+        img = Image.new("RGB", (45 if ch.isupper() or ch.isdigit() else 95, 140), (255, 255, 255))
         draw = ImageDraw.Draw(img)
         draw.text(
-            (0, 0 if ch.isupper() or ch.isdigit() else 6), ch,
+            (0, -11 if ch.isupper() or ch.isdigit() else 3), ch,
             fill = (0, 0, 0),
             font = self._font[0 if ch.isupper() or ch.isdigit() else 1]
         )
