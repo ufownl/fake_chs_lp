@@ -1,8 +1,14 @@
 import random
-import black_plate
-import blue_plate
-import yellow_plate
-import green_plate
+if __name__ == "__main__":
+    import black_plate
+    import blue_plate
+    import yellow_plate
+    import green_plate
+else:
+    from . import black_plate
+    from . import blue_plate
+    from . import yellow_plate
+    from . import green_plate
 
 
 class Draw:
