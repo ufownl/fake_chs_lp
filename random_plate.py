@@ -27,10 +27,12 @@ class Draw:
         candidates = [self._provinces, self._alphabets]
         if type(draw) == green_plate.Draw:
             candidates += [self._ads] * 6
-            return draw("".join([random.choice(c) for c in candidates]), random.randint(0, 1))
+            label = "".join([random.choice(c) for c in candidates])
+            return draw(label, random.randint(0, 1)), label
         else:
             candidates += [self._ads] * 5
-            return draw("".join([random.choice(c) for c in candidates]))
+            label = "".join([random.choice(c) for c in candidates])
+            return draw(label), label
 
 
 if __name__ == "__main__":
@@ -46,7 +48,8 @@ if __name__ == "__main__":
     rows = math.ceil(args.num / 3)
     cols = min(args.num, 3)
     for i in range(args.num):
-        plate = draw()
+        plate, label = draw()
+        print(label)
         plt.subplot(rows, cols, i + 1)
         plt.imshow(plate)
         plt.axis("off")
