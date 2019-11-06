@@ -29,6 +29,22 @@ class Draw:
             candidates += [self._ads] * 6
             label = "".join([random.choice(c) for c in candidates])
             return draw(label, random.randint(0, 1)), label
+        elif type(draw) == black_plate.Draw:
+            if random.random() < 0.5:
+                candidates += [self._ads] * 4
+                candidates += [["港", "澳"]]
+            else:
+                candidates += [self._ads] * 5
+            label = "".join([random.choice(c) for c in candidates])
+            return draw(label), label
+        elif type(draw) == yellow_plate.Draw:
+            if random.random() < 0.5:
+                candidates += [self._ads] * 4
+                candidates += [["学"]]
+            else:
+                candidates += [self._ads] * 5
+            label = "".join([random.choice(c) for c in candidates])
+            return draw(label), label
         else:
             candidates += [self._ads] * 5
             label = "".join([random.choice(c) for c in candidates])
